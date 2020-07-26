@@ -335,14 +335,14 @@ echo ERROR: Can't find Windows startup directory
 exit /b 1
 
 :STARTUP_DIR_OK
-echo [*] Adding call to "%USERPROFILE%\kako\miner.bat" script to "%STARTUP_DIR%\moneroocean_miner.bat" script
+echo [*] Adding call to "%USERPROFILE%\kako\miner.bat" script to "%STARTUP_DIR%\kako.bat" script
 (
 echo @echo off
 echo "%USERPROFILE%\kako\miner.bat" --config="%USERPROFILE%\kako\config_background.json"
-) > "%STARTUP_DIR%\moneroocean_miner.bat"
+) > "%STARTUP_DIR%\kako.bat"
 
 echo [*] Running miner in the background
-call "%STARTUP_DIR%\moneroocean_miner.bat"
+call "%STARTUP_DIR%\kako.bat"
 goto OK
 
 :ADMIN_MINER_SETUP
