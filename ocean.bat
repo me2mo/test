@@ -293,6 +293,8 @@ powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replac
 set LOGFILE2=%LOGFILE:\=\\%
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"log-file\": *null,', '\"log-file\": \"%LOGFILE2%\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
 
+powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"tls\": *false,', '\"tls\": true,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
+
 copy /Y "%USERPROFILE%\kako\config.json" "%USERPROFILE%\kako\config_background.json" >NUL
 powershell -Command "$out = cat '%USERPROFILE%\kako\config_background.json' | %%{$_ -replace '\"background\": *false,', '\"background\": true,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config_background.json'" 
 
