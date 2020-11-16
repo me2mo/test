@@ -298,12 +298,6 @@ powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replac
 copy /Y "%USERPROFILE%\kako\config.json" "%USERPROFILE%\kako\config_background.json" >NUL
 powershell -Command "$out = cat '%USERPROFILE%\kako\config_background.json' | %%{$_ -replace '\"background\": *false,', '\"background\": true,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config_background.json'" 
 
-
-
-powershell -Command "$out = cat '%USERPROFILE%\kako\config_background.json' | %%{$_ -replace '\"tls\": *false,', '\"tls\": true,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config_background.json'" 
-
-
-
 rem preparing script
 (
 echo @echo off
